@@ -17,3 +17,9 @@ class CustomerModelForm(forms.ModelForm):
             'email': '電子郵件',
             'tel': '聯絡電話'
         }
+
+    def clean_email(self, *args, **kwargs):
+        email = self.cleaned_data.get('email')
+        if email.endswith('@hotmail.com'):
+            raise forms.ValidationError('不得使用Hotmail電子郵件')
+        return email
